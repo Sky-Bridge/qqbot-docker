@@ -9,9 +9,9 @@ GO_CQHTTP_NAME=${GO_CQHTTP_NAME:-go_cqhttp}
 GO_CQHTTP_VOLUME=${GO_CQHTTP_VOLUME:-/data/qqbot/go_cqhttp}
 GO_CQHTTP_PORT=${GO_CQHTTP_PORT:-6700-6710}
 # config.yml文件变量
-UIN = ""
-HTTP_PORT= "6700"
-WS_PORT = "6701"
+UIN=""
+HTTP_PORT="6700"
+WS_PORT="6701"
 
 
 
