@@ -1,0 +1,1 @@
+# 默认无hosts文件，如果无法下载仓库，可试试./qqbot-install.sh --git-hosts，来运行个python脚本，在容器中添加git的hosts试下，如还是不行，只能，本地下载了传上服务器了，然后修改dockerfile
