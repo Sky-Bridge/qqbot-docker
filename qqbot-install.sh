@@ -57,7 +57,7 @@ function install(){
     sed -i -e "s#1233456#$UIN#g" -e "s#5700#$HTTP_PORT#"   ${GO_CQHTTP_VOLUME}/config.yml
     status "修改完成！"
     status "开始重新启动go-cqhttp！"
-    docker restart ${GO_CQHTTP_NAME}
+    run_go_cqhttp_image
     status "启动完成，开始登陆go-cqhttp"
     status "完成登陆后可按ctrl+c退出"
     sleep 5
