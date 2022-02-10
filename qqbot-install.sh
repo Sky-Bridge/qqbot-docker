@@ -33,36 +33,40 @@ function build_image(){
     docker build -f qqbot.Dockerfile -t ${IMAGE_NAME}:${VERSION}  .
 }
 
-function initialize_go_cqhttp(){
-    docker run --rm -it --name ${GO_CQHTTP_NAME} -v ${GO_CQHTTP_VOLUME}:/data -p ${GO_CQHTTP_PORT}:${GO_CQHTTP_PORT}  ${IMAGE_NAME}:${VERSION}
-}
+#function initialize_go_cqhttp(){
+#    docker run --rm -it --name ${GO_CQHTTP_NAME} -v ${GO_CQHTTP_VOLUME}:/data -p ${GO_CQHTTP_PORT}:${GO_CQHTTP_PORT}  ${IMAGE_NAME}:${VERSION}
+#}
 
 function run_go_cqhttp_image(){
     docker run -dit --name ${GO_CQHTTP_NAME} -v ${GO_CQHTTP_VOLUME}:/data -p ${GO_CQHTTP_PORT}:${GO_CQHTTP_PORT} --restart always ${IMAGE_NAME}:${VERSION}
 }
 
 function install(){
-    echo "开始安装!"
-    echo "开始编译go-cqhttp镜像"
+    status "开始安装!"
+    status "开始编译go-cqhttp镜像"
     sleep 3
     status build_image
-    echo "go-cqhttp镜像编译完成！"
-    echo "开始初始化go-cqhttp镜像"
+    build_image
+    status "go-cqhttp镜像编译完成！"
+    status "开始初始化go-cqhttp镜像"
     sleep 2
-    initialize_go_cqhttp
-    echo "初始化完成！"
-    echo "开始按照默认变量修改config.yml文件！"
-    sed -ie "s#123456#$UIN#g" "s#5700#$HTTP_PORT#g" "s#6700#$WS_PORT#g"  ${GO_CQHTTP_VOLUME}/config.yml
-    echo "修改完成！"
-    echo "开始重新启动go-cqhttp！"
     run_go_cqhttp_image
-    echo "启动完成，开始登陆go-cqhttp"
-    echo "完成登陆后可按ctrl+c退出"
+    docker logs -f ${GO_CQHTTP_NAME}
+    status "初始化完成！"
+    status "开始按照默认变量修改config.yml文件！"
+    sed -i -e "s#6700#$WS_PORT#"  ${GO_CQHTTP_VOLUME}/config.yml
+    sed -i -e "s#1233456#$UIN#g" -e "s#5700#$HTTP_PORT#"   ${GO_CQHTTP_VOLUME}/config.yml
+    status "修改完成！"
+    status "开始重新启动go-cqhttp！"
+    docker restart ${GO_CQHTTP_NAME}
+    status "启动完成，开始登陆go-cqhttp"
+    status "完成登陆后可按ctrl+c退出"
     sleep 5
     docker logs -f ${GO_CQHTTP_NAME}
 
 }
 
+install
 
 case "$1" in
     --git-hosts)
