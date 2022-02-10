@@ -33,9 +33,9 @@ function build_image(){
     docker build -f go_cqhttp.Dockerfile -t ${IMAGE_NAME}:${VERSION}  .
 }
 
-#function initialize_go_cqhttp(){
-#    docker run --rm -it --name ${GO_CQHTTP_NAME} -v ${GO_CQHTTP_VOLUME}:/data -p ${GO_CQHTTP_PORT}:${GO_CQHTTP_PORT}  ${IMAGE_NAME}:${VERSION}
-#}
+function initialize_go_cqhttp(){
+    docker run --rm -it --name ${GO_CQHTTP_NAME} -v ${GO_CQHTTP_VOLUME}:/data -p ${GO_CQHTTP_PORT}:${GO_CQHTTP_PORT}  ${IMAGE_NAME}:${VERSION}
+}
 
 function run_go_cqhttp_image(){
     docker run -dit --name ${GO_CQHTTP_NAME} -v ${GO_CQHTTP_VOLUME}:/data -p ${GO_CQHTTP_PORT}:${GO_CQHTTP_PORT} --restart always ${IMAGE_NAME}:${VERSION}
@@ -50,8 +50,7 @@ function install(){
     status "go-cqhttp镜像编译完成！"
     status "开始初始化go-cqhttp镜像"
     sleep 2
-    run_go_cqhttp_image
-    docker logs -f ${GO_CQHTTP_NAME}
+    initialize_go_cqhttp
     status "初始化完成！"
     status "开始按照默认变量修改config.yml文件！"
     sed -i -e "s#6700#$WS_PORT#"  ${GO_CQHTTP_VOLUME}/config.yml
@@ -66,14 +65,14 @@ function install(){
 
 }
 
-install
+
 
 case "$1" in
     --git-hosts)
         git_hosts
         ;;
     *)
-        build "$@"
+        install
         ;;
 esac
 
