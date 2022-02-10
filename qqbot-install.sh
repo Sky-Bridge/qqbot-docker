@@ -30,7 +30,7 @@ function git_hosts(){
 }
 
 function build_image(){
-    docker build -f qqbot.Dockerfile -t ${IMAGE_NAME}:${VERSION}  .
+    docker build -f go_cqhttp.Dockerfile -t ${IMAGE_NAME}:${VERSION}  .
 }
 
 #function initialize_go_cqhttp(){
