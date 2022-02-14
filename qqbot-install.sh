@@ -62,7 +62,7 @@ function initialize_go_cqhttp(){
 function initialize_atri(){
     cd ${MAIN_HOME} && while timeout -k 70 60 bash -c 'git clone https://github.com/Kyomotoi/ATRI.git'; [ $? != 0 ];do echo "下载失败正在重试！(如多次重试不行建议手动下载仓库，修改dockerfile，copy到镜像里)" && sleep 2;done
     sed -i 's/pathlib>=1.0.1/#pathlib>=1.0.1/g' ${ATRI_VOLUME}/requirements.txt
-    sed -i -e "s#127.0.0.1#${ATRI_HOST}#g" -e "s#20000#${ATRI_PORT}" -e 's/enabled:\ true/enabled:\ false/g' -e "s/\"1234567890\"/\"${ATRI_ADMIN_QQ}\"/g" ${ATRI_VOLUME}/config.yml
+    sed -i -e "s#127.0.0.1#${ATRI_HOST}#g" -e "s#20000#${ATRI_PORT}#/g" -e 's/enabled:\ true/enabled:\ false/g' -e "s/\"1234567890\"/\"${ATRI_ADMIN_QQ}\"/g" ${ATRI_VOLUME}/config.yml
 }
 
 function run_go_cqhttp_image(){
