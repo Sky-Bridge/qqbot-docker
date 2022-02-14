@@ -24,6 +24,6 @@ RUN cd nonebot2 && /bin/bash -c "source ./bin/activate"  \
     && nb driver install httpx -i https://pypi.tuna.tsinghua.edu.cn/simple \
     && nb driver install websockets -i https://pypi.tuna.tsinghua.edu.cn/simple \
     && nb driver install quart -i https://pypi.tuna.tsinghua.edu.cn/simple
-
-CMD [ "python /data/ATRI/main.py" ]
+WORKDIR /data/ATRI
+CMD [ "python main.py" ]
 

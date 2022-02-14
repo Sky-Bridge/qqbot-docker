@@ -122,6 +122,7 @@ case "$1" in
         ;;
     build)
         build_image $1 $2
+        ;;
     *)
         status "请使用-h或--help获取帮助信息！"
         ;;
