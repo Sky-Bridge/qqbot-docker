@@ -19,6 +19,8 @@ RUN sed -i 's/deb.debian.org/mirrors.tuna.tsinghua.edu.cn/g' /etc/apt/sources.li
 
 RUN cd nonebot2 && /bin/bash -c "source ./bin/activate"  \
     && pip install nb-cli -i https://pypi.tuna.tsinghua.edu.cn/simple \
+    && mkdir /data && cd /data && while timeout -k 70 60 bash -c 'git clone https://github.com/Kyomotoi/ATRI.git'; [ $? != 0 ];do echo "下载失败正在重试！(如多次重试不行建议手动下载仓库，修改dockerfile，copy到镜像里)" && sleep 2;done \
+    && cd /data/ATRI && sed -i 's/pathlib>=1.0.1/#pathlib>=1.0.1/g' /data/ATRI/requirements.txt \
     && pip install -r requirements.txt -i https://pypi.tuna.tsinghua.edu.cn/simple \
     && nb driver install aiohttp -i https://pypi.tuna.tsinghua.edu.cn/simple \
     && nb driver install httpx -i https://pypi.tuna.tsinghua.edu.cn/simple \
