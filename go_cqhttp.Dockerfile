@@ -1,4 +1,4 @@
-FROM golang AS builder
+FROM golang:1.18 AS builder
 
 RUN go env -w GO111MODULE=auto \
   && go env -w CGO_ENABLED=0 \

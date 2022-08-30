@@ -93,14 +93,14 @@ function install(){
     status "完成登陆后可按ctrl+c退出"
     sleep 5
     docker logs -f ${GO_CQHTTP_NAME}
-    status "go-cqhttp，已经配置完成，现在开始配置ATRI！"
-    initialize_atri
-    build_image build --atri
-    status "ATRI配置完成，现在开始启动ATRI！"
-    run_atri
-    status "现在开始查看ATRI运行情况，运行正常请按ctrl+c退出日志查看！"
-    sleep 5
-    docker logs -f ${ATRI_NAME}
+#    status "go-cqhttp，已经配置完成，现在开始配置ATRI！"
+#    initialize_atri
+#    build_image build --atri
+#    status "ATRI配置完成，现在开始启动ATRI！"
+#    run_atri
+#    status "现在开始查看ATRI运行情况，运行正常请按ctrl+c退出日志查看！"
+#    sleep 5
+#    docker logs -f ${ATRI_NAME}
 }
 
 
